@@ -59,39 +59,37 @@
     \end{tikzpicture}
 
     \centering
-    \vspace*{0.5cm}
+    \vspace*{0.2cm}
 
     % Header Title
     {\large \textbf{COMPUTER GRAPHICS LAB REPORT}}\\[0.25cm]
     {\normalsize \textbf{LAB 02: BASIC 2D DRAWING WITH TURTLE GRAPHICS}}\\[0.45cm]
 
-    \noindent\rule{0.88\textwidth}{0.8pt}\\[0.7cm]
+    \noindent\rule{0.88\textwidth}{0.85pt}\\[0.5cm]
 
-    {\large \textbf{COURSE: COMPUTER GRAPHICS LAB}}\\[1.1cm]
+    {\large \textbf{IRE 404 - COMPUTER GRAPHICS AND ANIMATION SESSIONAL}}\vfill
 
     % Student Info
     {\small \textit{SUBMITTED BY -}}\\[0.25cm]
     {\normalsize \textbf{SHAHRIAR ALOM MASUD}}\\[0.12cm]
     {\footnotesize STUDENT ID: 2201032}\\[0.08cm]
-    {\footnotesize SESSION: 2022--2023}\\[1.1cm]
+    {\footnotesize SESSION: 2022--2023}\vfill
 
     % Instructor Info
-    {\small \textit{SUPERVISED BY -}}\\[0.25cm]
+    {\small \textit{SUBMITTED TO -}}\\[0.25cm]
     {\normalsize \textbf{FARZANA AKTER}}\\[0.12cm]
     {\footnotesize ASSISTANT PROFESSOR}\\[0.08cm]
-    {\footnotesize DEPARTMENT OF IRE, UFTB}\\[1.1cm]
+    {\footnotesize DEPARTMENT OF IRE, UFTB}\vfill
 
     % University Logo
-    \includegraphics[width=2.6cm]{screenshots/uftb_logo.png}\\[1.1cm]
+    \includegraphics[width=2.7cm]{screenshots/uftb_logo.png}\vfill
 
     % University & Faculty Details
-    \vfill
-    {\footnotesize FACULTY OF CYBER PHYSICAL SYSTEM ENGINEERING}\\[0.1cm]
-    {\footnotesize \textbf{DEPARTMENT OF INTERNET OF THINGS AND ROBOTICS}}\\[0.08cm]
-    {\footnotesize \textbf{ENGINEERING (IRE)}}\\[0.15cm]
-    {\footnotesize UNIVERSITY OF FRONTIER TECHNOLOGY, BANGLADESH}\\[0.35cm]
-    {\footnotesize OCTOBER 2026}
-    \vspace*{0.3cm}
+    {\footnotesize FACULTY OF CYBER PHYSICAL SYSTEM ENGINEERING}\\[0.18cm]
+    {\footnotesize DEPARTMENT OF INTERNET OF THINGS AND ROBOTICS ENGINEERING (IRE)}\\[0.18cm]
+    {\footnotesize UNIVERSITY OF FRONTIER TECHNOLOGY, BANGLADESH}\\[0.5cm]
+    {\footnotesize OCTOBER 12, 2026}
+    \vspace*{0.2cm}
 \end{titlepage}
 
 \newpage
@@ -126,9 +124,9 @@
 \end{center}
 
 \vspace{0.2cm}
-\textbf{Key Observation / Discussion:}
+\textbf{Observation:}
 \vspace{0.1cm}
-{\footnotesize The order of operations is crucial. Because the white blot creates the crescent smile by partially covering the underlying shape, the mouth must be drawn \textbf{before} the nose and eyes. Drawing the mouth afterward would overwrite the blue triangle nose with white.}
+{\footnotesize The mouth must be drawn before the nose and eyes. Because the white blot creates the crescent smile by partially covering the underlying shape, drawing the mouth afterward would overwrite parts of the nose with white.}
 \end{minipage}
 
 \newpage
@@ -162,9 +160,9 @@
 \end{center}
 
 \vspace{0.2cm}
-\textbf{Observation / Analysis:}
+\textbf{Observation:}
 \vspace{0.1cm}
-{\footnotesize In the authentic National Flag of Bangladesh, the centre of the red circle is located at $9/20$ ($45\%$) of the length from the left edge. In this lab task, placing the circle at $1/5$ ($20\%$) from the left edge visibly shifts the circle to the far-left border, which was the intended observation.}
+{\footnotesize In the authentic National Flag of Bangladesh, the centre of the red circle is located at $9/20$ ($45\%$) of the length from the left edge. In this lab task, placing the circle at $1/5$ ($20\%$) from the left edge visibly shifts the circle to the far-left border, as observed.}
 \end{minipage}
 
 \newpage
@@ -198,9 +196,9 @@
 \end{center}
 
 \vspace{0.2cm}
-\textbf{Geometric Explanation:}
+\textbf{Observation:}
 \vspace{0.1cm}
-{\footnotesize Both squares have equal side length $S = 200$ and center at $(0, 0)$. The straight square is drawn from corner $(-S/2, -S/2)$. For the $45^\circ$ rotated square, the distance from center to corner along the vertical axis is $R = \frac{S}{\sqrt{2}}$. Starting at $(0, -R)$ with heading $45^\circ$ yields the exact diamond orientation.}
+{\footnotesize Both squares have equal side length $S = 200$ and center at $(0, 0)$. The straight square is drawn from corner $(-S/2, -S/2)$. The $45^\circ$ rotated square is drawn with corner offset $R = \frac{S}{\sqrt{2}} \approx 141.4$ along the vertical axis, forming an 8-pointed star.}
 \end{minipage}
 
 \newpage
@@ -234,15 +232,9 @@
 \end{center}
 
 \vspace{0.2cm}
-\textbf{Elegance \& Efficiency:}
+\textbf{Observation:}
 \vspace{0.1cm}
-{\footnotesize The pattern exhibits 5-fold rotational symmetry about a common corner vertex. Instead of repetitive code, it is implemented using a concise nested loop:
-\begin{itemize}
-    \setlength{\itemsep}{1pt}
-    \item \textbf{Outer loop:} Repeats 5 times, turning right by $360^\circ / 5 = 72^\circ$.
-    \item \textbf{Inner loop:} Draws the 4 sides of each square with $90^\circ$ turns.
-\end{itemize}
-This results in clean, readable, and mathematically optimal code.}
+{\footnotesize The pattern exhibits 5-fold rotational symmetry about a common corner vertex. Instead of repetitive code, it is implemented using a concise nested loop: repeating 5 times, turning right by $360^\circ / 5 = 72^\circ$ after each 4-sided square with $90^\circ$ turns.}
 \end{minipage}
 
 \end{document}
