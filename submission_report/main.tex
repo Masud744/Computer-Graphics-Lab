@@ -2,12 +2,13 @@
 
 \usepackage[margin=1.5cm]{geometry}
 \usepackage{graphicx}
+\usepackage{amsmath}
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{tikz}
 
-% Hyperlink styling
+% Hyperlink configuration
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -43,7 +44,7 @@
 \begin{document}
 
 % ==============================================================================
-% COVER PAGE (Matches University Standard Format)
+% COVER PAGE
 % ==============================================================================
 \begin{titlepage}
     % Page Border using TikZ
@@ -59,39 +60,40 @@
     \end{tikzpicture}
 
     \centering
-    \vspace*{0.6cm}
+    \vspace*{0.3cm}
+
+    % University Crest & Header
+    \includegraphics[width=3.6cm]{screenshots/uftb_logo.png}\\[0.4cm]
+    {\normalsize \textbf{UNIVERSITY OF FRONTIER TECHNOLOGY, BANGLADESH}}\\[0.16cm]
+    {\footnotesize \textbf{DEPARTMENT OF INTERNET OF THINGS AND ROBOTICS ENGINEERING (IRE)}}\\[0.14cm]
+    {\footnotesize FACULTY OF CYBER PHYSICAL SYSTEM ENGINEERING}\\[0.85cm]
 
     % Header Title (Lab Topic)
     {\large \textbf{LAB REPORT 02}}\\[0.25cm]
     {\normalsize \textbf{BASIC 2D DRAWING WITH TURTLE GRAPHICS}}\\[0.45cm]
 
+    % Standard Cover Page Divider Rule
     \noindent\rule{0.88\textwidth}{0.85pt}\\[0.55cm]
 
     {\normalsize \textbf{COURSE CODE: IRE 404}}\\[0.18cm]
-    {\normalsize \textbf{COURSE TITLE: COMPUTER GRAPHICS AND ANIMATION SESSIONAL}}\\[1.3cm]
+    {\normalsize \textbf{COURSE TITLE: COMPUTER GRAPHICS AND ANIMATION SESSIONAL}}\\[1.0cm]
 
-    % Student Info
-    {\small \textit{SUBMITTED BY -}}\\[0.25cm]
-    {\normalsize \textbf{SHAHRIAR ALOM MASUD}}\\[0.15cm]
+    % Student Info (Vertical Stack)
+    {\small \textbf{SUBMITTED BY:}}\\[0.22cm]
+    {\normalsize \textbf{SHAHRIAR ALOM MASUD}}\\[0.12cm]
     {\footnotesize STUDENT ID: 2201032}\\[0.1cm]
-    {\footnotesize SESSION: 2022--2023}\\[1.1cm]
+    {\footnotesize SESSION: 2022--2023}\\[0.9cm]
 
-    % Instructor Info
-    {\small \textit{SUBMITTED TO -}}\\[0.25cm]
-    {\normalsize \textbf{FARZANA AKTER}}\\[0.15cm]
+    % Instructor Info (Vertical Stack)
+    {\small \textbf{SUBMITTED TO:}}\\[0.22cm]
+    {\normalsize \textbf{FARZANA AKTER}}\\[0.12cm]
     {\footnotesize ASSISTANT PROFESSOR}\\[0.1cm]
-    {\footnotesize DEPARTMENT OF IRE, UFTB}\\[1.1cm]
+    {\footnotesize DEPARTMENT OF IRE, UFTB}
 
-    % University Logo (Enlarged)
-    \includegraphics[width=3.6cm]{screenshots/uftb_logo.png}\\[1.0cm]
-
-    % University & Faculty Details
+    % University & Date Details
     \vfill
-    {\footnotesize FACULTY OF CYBER PHYSICAL SYSTEM ENGINEERING}\\[0.18cm]
-    {\footnotesize DEPARTMENT OF INTERNET OF THINGS AND ROBOTICS ENGINEERING (IRE)}\\[0.18cm]
-    {\footnotesize UNIVERSITY OF FRONTIER TECHNOLOGY, BANGLADESH}\\[0.45cm]
     {\footnotesize OCTOBER 12, 2026}
-    \vspace*{0.3cm}
+    \vspace*{0.2cm}
 \end{titlepage}
 
 \newpage
@@ -107,28 +109,33 @@
 \href{https://github.com/Masud744/Computer-Graphics-Lab/blob/main/task1.py}{\texttt{https://github.com/Masud744/Computer-Graphics-Lab/blob/main/task1.py}}\vspace{0.25cm}
 
 \noindent
-\begin{minipage}[t]{0.56\textwidth}
+\begin{minipage}[t]{0.55\textwidth}
 \textbf{Python Source Code (\texttt{task1.py}):}
 \vspace{0.1cm}
 \lstinputlisting[language=Python]{../task1.py}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.41\textwidth}
+\begin{minipage}[t]{0.42\textwidth}
 \textbf{Problem Description:}
-\vspace{0.1cm}
-{\footnotesize Draw a face enclosed in a black circle (radius 300), small green blots for eyes, a thick blue triangle for a nose, and a red smiling mouth. The smiling mouth is formed by drawing a red blot, and then drawing a white blot slightly higher to leave a crescent of red.}
+\vspace{0.08cm}
+{\small Draw a face enclosed in a black circle (radius 300), small green blots for eyes, a thick blue triangle for a nose, and a red smiling mouth. The smiling mouth is synthesized by drawing a red blot, and then overlaying a slightly higher white blot to leave a red crescent.}
 
-\vspace{0.4cm}
+\vspace{0.35cm}
+\textbf{Methodology:}
+\vspace{0.08cm}
+{\small The face boundary is drawn with \texttt{circle(300)} from $(0, -300)$. The crescent smile is formed via color occlusion: a red disk (\texttt{dot(180)}) at $(0, -90)$ is overlaid with an offset white disk at $(0, -65)$. The mouth is drawn before the triangular nose and green eyes so the white blot does not overwrite foreground features.}
+
+\vspace{0.35cm}
 \textbf{Output Visualization:}
 \vspace{0.1cm}
 \begin{center}
-\includegraphics[width=0.92\textwidth]{screenshots/task1_output.png}
+\includegraphics[width=0.88\textwidth]{screenshots/task1_output.png}
 \end{center}
 
-\vspace{0.2cm}
-\textbf{Observation:}
-\vspace{0.1cm}
-{\footnotesize The mouth must be drawn before the nose and eyes. Because the white blot creates the crescent smile by partially covering the underlying shape, drawing the mouth afterward would overwrite parts of the nose with white.}
+\vspace{0.15cm}
+\textbf{Result \& Observation:}
+\vspace{0.08cm}
+{\small The mouth must be rendered prior to the nose and eyes. Proper Z-ordering ensures the crescent smile is cleanly carved out without overlapping the foreground nasal and eye contours.}
 \end{minipage}
 
 \newpage
@@ -143,28 +150,33 @@
 \href{https://github.com/Masud744/Computer-Graphics-Lab/blob/main/task2.py}{\texttt{https://github.com/Masud744/Computer-Graphics-Lab/blob/main/task2.py}}\vspace{0.25cm}
 
 \noindent
-\begin{minipage}[t]{0.56\textwidth}
+\begin{minipage}[t]{0.55\textwidth}
 \textbf{Python Source Code (\texttt{task2.py}):}
 \vspace{0.1cm}
 \lstinputlisting[language=Python]{../task2.py}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.41\textwidth}
+\begin{minipage}[t]{0.42\textwidth}
 \textbf{Problem Description:}
-\vspace{0.1cm}
-{\footnotesize Draw a green background rectangle with proportions of approximately 10:6 (length). Draw a red circle inside the rectangle. Fill the rectangle with green and the circle with red. Position the centre of the red circle at one-fifth ($1/5$) of the rectangle's length from the left edge.}
+\vspace{0.08cm}
+{\small Draw a green background rectangle with proportions of approximately 10:6 (length to height). Draw a solid red circle inside the rectangle. Position the centre of the red circle at one-fifth ($1/5$) of the rectangle's length from the left edge.}
 
-\vspace{0.4cm}
+\vspace{0.35cm}
+\textbf{Methodology:}
+\vspace{0.08cm}
+{\small The flag is parameterized with length $600$ and height $360$, drawn from $(-300, -180)$ to center it at origin $(0, 0)$. The red circle (radius 80) is translated horizontally to center $X_c = -300 + (600 / 5) = -180$, and filled using \texttt{begin\_fill()} and \texttt{end\_fill()}.}
+
+\vspace{0.35cm}
 \textbf{Output Visualization:}
 \vspace{0.1cm}
 \begin{center}
-\includegraphics[width=0.95\textwidth]{screenshots/task2_output.png}
+\includegraphics[width=0.92\textwidth]{screenshots/task2_output.png}
 \end{center}
 
-\vspace{0.2cm}
-\textbf{Observation:}
-\vspace{0.1cm}
-{\footnotesize In the authentic National Flag of Bangladesh, the centre of the red circle is located at $9/20$ ($45\%$) of the length from the left edge. In this lab task, placing the circle at $1/5$ ($20\%$) from the left edge visibly shifts the circle to the far-left border, as observed.}
+\vspace{0.15cm}
+\textbf{Result \& Observation:}
+\vspace{0.08cm}
+{\small In the authentic National Flag of Bangladesh, the circle is located at $9/20$ ($45\%$) from the left edge. Here, placing it at $1/5$ ($20\%$) shifts the red disc towards the left hoist border, strictly meeting the experimental specification.}
 \end{minipage}
 
 \newpage
@@ -179,28 +191,33 @@
 \href{https://github.com/Masud744/Computer-Graphics-Lab/blob/main/task3.py}{\texttt{https://github.com/Masud744/Computer-Graphics-Lab/blob/main/task3.py}}\vspace{0.25cm}
 
 \noindent
-\begin{minipage}[t]{0.56\textwidth}
+\begin{minipage}[t]{0.55\textwidth}
 \textbf{Python Source Code (\texttt{task3.py}):}
 \vspace{0.1cm}
 \lstinputlisting[language=Python]{../task3.py}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.41\textwidth}
+\begin{minipage}[t]{0.42\textwidth}
 \textbf{Problem Description:}
-\vspace{0.1cm}
-{\footnotesize Draw the shape consisting of two overlapping squares sharing the identical center point. One square is aligned horizontally/vertically ($0^\circ$), and the second square is rotated by $45^\circ$, forming an 8-pointed star shape.}
+\vspace{0.08cm}
+{\small Draw the shape consisting of two overlapping squares sharing the identical center point $(0,0)$. One square is aligned horizontally and vertically ($0^\circ$), and the second square is rotated by $45^\circ$, forming an 8-pointed star shape.}
 
-\vspace{0.4cm}
+\vspace{0.35cm}
+\textbf{Methodology:}
+\vspace{0.08cm}
+{\small The upright square of side length $S = 200$ is drawn from corner $(-100, -100)$. The $45^\circ$ rotated square is drawn with corner offset $R = \frac{S}{2}\sqrt{2} \approx 141.42$ along the vertical axis. Pen is set to $(0, -R)$ and directed via \texttt{setheading(45)} before drawing 4 equal sides.}
+
+\vspace{0.35cm}
 \textbf{Output Visualization:}
 \vspace{0.1cm}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/task3_output.png}
+\includegraphics[width=0.84\textwidth]{screenshots/task3_output.png}
 \end{center}
 
-\vspace{0.2cm}
-\textbf{Observation:}
-\vspace{0.1cm}
-{\footnotesize Both squares have equal side length $S = 200$ and center at $(0, 0)$. The straight square is drawn from corner $(-S/2, -S/2)$. The $45^\circ$ rotated square is drawn with corner offset $R = \frac{S}{\sqrt{2}} \approx 141.4$ along the vertical axis, forming an 8-pointed star.}
+\vspace{0.15cm}
+\textbf{Result \& Observation:}
+\vspace{0.08cm}
+{\small Both squares have identical side length $S = 200$ and center $(0,0)$. Concentric intersection produces an 8-pointed regular star with flawless radial symmetry.}
 \end{minipage}
 
 \newpage
@@ -215,28 +232,33 @@
 \href{https://github.com/Masud744/Computer-Graphics-Lab/blob/main/task4.py}{\texttt{https://github.com/Masud744/Computer-Graphics-Lab/blob/main/task4.py}}\vspace{0.25cm}
 
 \noindent
-\begin{minipage}[t]{0.56\textwidth}
+\begin{minipage}[t]{0.55\textwidth}
 \textbf{Python Source Code (\texttt{task4.py}):}
 \vspace{0.1cm}
 \lstinputlisting[language=Python]{../task4.py}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.41\textwidth}
+\begin{minipage}[t]{0.42\textwidth}
 \textbf{Problem Description:}
-\vspace{0.1cm}
-{\footnotesize Draw the 5-square rotational pattern. Think carefully about how you might be able to draw this elegantly (efficiently and readably).}
+\vspace{0.08cm}
+{\small Draw the 5-square rotational pattern anchored at a common corner vertex in an elegant, concise, and efficient implementation.}
 
-\vspace{0.4cm}
+\vspace{0.35cm}
+\textbf{Methodology:}
+\vspace{0.08cm}
+{\small The pattern exhibits 5-fold rotational symmetry ($C_5$) about a common pivot vertex. It is implemented using a concise nested loop: repeating 5 times, turning right by $360^\circ / 5 = 72^\circ$ after each 4-sided square with side 150 and $90^\circ$ turns.}
+
+\vspace{0.35cm}
 \textbf{Output Visualization:}
 \vspace{0.1cm}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/task4_output.png}
+\includegraphics[width=0.84\textwidth]{screenshots/task4_output.png}
 \end{center}
 
-\vspace{0.2cm}
-\textbf{Observation:}
-\vspace{0.1cm}
-{\footnotesize The pattern exhibits 5-fold rotational symmetry about a common corner vertex. Instead of repetitive code, it is implemented using a concise nested loop: repeating 5 times, turning right by $360^\circ / 5 = 72^\circ$ after each 4-sided square with $90^\circ$ turns.}
+\vspace{0.15cm}
+\textbf{Result \& Observation:}
+\vspace{0.08cm}
+{\small By exploiting angular periodicity ($72^\circ$), the entire 5-square pattern is generated concisely without repetitive code or coordinate hardcoding.}
 \end{minipage}
 
 \end{document}
