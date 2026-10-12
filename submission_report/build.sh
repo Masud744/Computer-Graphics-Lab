@@ -26,11 +26,11 @@ pdflatex -interaction=nonstopmode main.tex > /dev/null
 pdflatex -interaction=nonstopmode main.tex > /dev/null
 
 # Step 3: Copy to final output and clean auxiliary files
-cp main.pdf Lab_Report_2.pdf
+cp main.pdf 2201032_Report_2.pdf
 rm -f *.aux *.log *.out
 
 echo "[3/3] Done!"
 echo "================================================="
 echo " SUCCESS! Output generated:"
-echo " -> $(pwd)/Lab_Report_2.pdf"
+echo " -> $(pwd)/2201032_Report_2.pdf"
 echo "================================================="
