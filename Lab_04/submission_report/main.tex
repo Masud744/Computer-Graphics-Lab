@@ -7,8 +7,8 @@
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{tikz}
-\usepackage{booktabs}
 \usepackage{caption}
+\usepackage{multicol}
 
 % Hyperlink configuration
 \hypersetup{
@@ -75,7 +75,7 @@
 
     % Header Title (Lab Topic)
     {\large \textbf{LAB REPORT 04}}\\[0.25cm]
-    {\normalsize \textbf{3D WIREFRAME MODELING AND TRANSFORMATION USING OPENGL}}\\[0.85cm]
+    {\normalsize \textbf{3D WIREFRAME CUBOID AND ROTATION USING OPENGL}}\\[0.85cm]
 
     % Course Code & Title
     {\normalsize \textbf{COURSE CODE: IRE 404}}\\[0.18cm]
@@ -104,136 +104,110 @@
 \pagenumbering{arabic}
 
 % ==============================================================================
-% 1. PROBLEM STATEMENT & OBJECTIVES
+% 1. PROBLEM DESCRIPTION
 % ==============================================================================
-\section*{1. Problem Statement and Objectives}
-\noindent\rule{\textwidth}{0.6pt}\vspace{0.1cm}
+\section*{1. Problem Description}
+\noindent\rule{\textwidth}{0.6pt}\vspace{0.15cm}
 
-The primary objective of this experiment is to construct, parameterize, and animate a 3D wireframe rectangular cuboid using the OpenGL state machine integrated within Pygame. While a cube has equal lengths along all axes ($X=Y=Z$), a rectangular cuboid requires mutually distinct dimensions ($W \neq H \neq D$), illustrating non-uniform spatial scaling and anisotropic perspective projection.
+In this lab, we build a 3D wireframe graphics application using Python, Pygame, and OpenGL. The objective is to create an $800 \times 600$ display window, set the background color to black, and draw a rectangular cuboid whose width, height, and depth are all different. The cuboid's edges are drawn in red with a line width of 3 pixels. Finally, the cuboid rotates continuously around the Y-axis at a smooth 60 frames per second.
 
-\vspace{0.15cm}
-\noindent\textbf{Experimental Requirements:}
+\vspace{0.2cm}
+\noindent\textbf{Key Requirements:}
 \begin{enumerate}
-    \setlength{\itemsep}{0pt}
-    \item Create an OpenGL rendering window with a resolution of $800 \times 600$ pixels via \texttt{pygame.display.set\_mode()}.
-    \item Configure a solid black background color using \texttt{glClearColor(0.0, 0.0, 0.0, 1.0)}.
-    \item Set the cuboid's wireframe edges to red using \texttt{glColor3f(1.0, 0.0, 0.0)}.
-    \item Increase the stroke width of all edges to $3$ pixels using \texttt{glLineWidth(3.0)}.
-    \item Modify standard cube coordinates to generate unequal width, height, and depth ($W=4.0, H=2.0, D=3.0$).
-    \item Continuously rotate the cuboid around the $Y$-axis using \texttt{glRotatef(1.0, 0.0, 1.0, 0.0)}.
-    \item Verify that the red rectangular cuboid rotates smoothly at 60 FPS against the solid black background.
+    \item Create an OpenGL display window with $800 \times 600$ resolution using \texttt{pygame.display.set\_mode()}.
+    \item Set the background color to black using \texttt{glClearColor()}.
+    \item Draw the cuboid's edges in red color using \texttt{glColor3f()}.
+    \item Increase the thickness of the edges to 3 pixels using \texttt{glLineWidth()}.
+    \item Modify the vertex coordinates so that width, height, and depth are different.
+    \item Rotate the cuboid continuously around the Y-axis using \texttt{glRotatef()}.
+    \item Verify that the object rotates smoothly on the black background.
 \end{enumerate}
 
 \noindent\textbf{GitHub Repository Link:}\\
 \href{https://github.com/Masud744/Computer-Graphics-Lab/tree/main/Lab_04}{\texttt{https://github.com/Masud744/Computer-Graphics-Lab/tree/main/Lab\_04}}
 
 % ==============================================================================
-% 2. THEORETICAL & MATHEMATICAL FOUNDATION
+% 2. METHODOLOGY
 % ==============================================================================
-\vspace{0.25cm}
-\section*{2. Theoretical and Mathematical Background}
-\noindent\rule{\textwidth}{0.6pt}\vspace{0.1cm}
+\vspace{0.35cm}
+\section*{2. Methodology}
+\noindent\rule{\textwidth}{0.6pt}\vspace{0.15cm}
 
-\subsection*{2.1 Geometric Modeling of Rectangular Cuboid}
-A cuboid centered at the origin is characterized by half-extents $(w_x, h_y, d_z)$ such that $w_x \neq h_y \neq d_z$. We define:
-$$\text{Width } (X) = 2 \times w_x = 4.0, \quad \text{Height } (Y) = 2 \times h_y = 2.0, \quad \text{Depth } (Z) = 2 \times d_z = 3.0$$
-The 8 vertices $V_0, \dots, V_7$ are specified as $(\pm 2.0, \pm 1.0, \pm 1.5)$, interconnected by 12 boundary edges:
-$$E = \{(0,1),(0,3),(0,4),(2,1),(2,3),(2,7),(6,3),(6,4),(6,7),(5,1),(5,4),(5,7)\}$$
-Rendering is performed using the OpenGL primitive \texttt{GL\_LINES}.
-
-\subsection*{2.2 Perspective Projection and Viewing Frustum}
-Perspective projection produces realistic depth foreshortening wherein distant objects appear smaller. The projection matrix is generated via \texttt{gluPerspective($45^\circ, 800/600, 0.1, 50.0$)}. The scene is translated by $T(0, 0, -8.0)$ along the negative $Z$-axis to position the cuboid within the viewing frustum.
-
-\subsection*{2.3 Continuous Rotation Matrix ($Y$-Axis)}
-To animate continuous rotation around the Cartesian $Y$-axis, the transformation matrix $R_y(\theta)$ is applied each frame:
-$$R_y(\theta) = \begin{bmatrix}
-\cos\theta & 0 & \sin\theta & 0 \\
-0 & 1 & 0 & 0 \\
--\sin\theta & 0 & \cos\theta & 0 \\
-0 & 0 & 0 & 1
-\end{bmatrix}$$
-Calling \texttt{glRotatef(1.0, 0.0, 1.0, 0.0)} compounds this rotation into the current ModelView matrix at $60\text{ FPS}$, yielding smooth, constant-velocity angular displacement.
+\begin{enumerate}
+    \item \textbf{Window and Context Setup:} We initialize Pygame and open an $800 \times 600$ window with \texttt{DOUBLEBUF} and \texttt{OPENGL} flags. We set the clear color to black using \texttt{glClearColor(0.0, 0.0, 0.0, 1.0)}.
+    
+    \item \textbf{Camera and Projection:} A perspective view is created with a 45-degree field of view using \texttt{gluPerspective(45, (800 / 600), 0.1, 50.0)}. We move the camera back by 8 units along the Z-axis using \texttt{glTranslatef(0.0, 0.0, -8.0)} and tilt it slightly by 20 degrees around the X-axis so that the 3D shape is clearly visible from above.
+    
+    \item \textbf{Defining the Cuboid Dimensions:} Rather than using a standard unit cube where all sides are equal, we choose three distinct dimensions:
+    \begin{itemize}
+        \item $\text{Width } (X) = 4.0$ (from $-2.0$ to $+2.0$)
+        \item $\text{Height } (Y) = 2.0$ (from $-1.0$ to $+1.0$)
+        \item $\text{Depth } (Z) = 3.0$ (from $-1.5$ to $+1.5$)
+    \end{itemize}
+    We define the 8 corner vertices using these values and set up the 12 connecting edges.
+    
+    \item \textbf{Drawing the Edges:} In the drawing function, we set the edge width to 3 pixels with \texttt{glLineWidth(3.0)} and the color to red using \texttt{glColor3f(1.0, 0.0, 0.0)}. We then draw the 12 edges using \texttt{GL\_LINES}.
+    
+    \item \textbf{Animation Loop:} In the main loop, we call \texttt{glRotatef(1.0, 0.0, 1.0, 0.0)} each frame to rotate the cuboid by 1 degree around the Y-axis. We clear the screen, draw the cuboid, flip the display, and call \texttt{clock.tick(60)} to maintain a smooth 60 FPS animation.
+\end{enumerate}
 
 \newpage
 
 % ==============================================================================
 % 3. SOURCE CODE IMPLEMENTATION
 % ==============================================================================
-\section*{3. Python Source Code Implementation (\texttt{cuboid.py})}
+\section*{3. Python Source Code (\texttt{cuboid.py})}
 \noindent\rule{\textwidth}{0.6pt}\vspace{0.15cm}
 
+\begin{multicols}{2}
 \lstinputlisting[language=Python]{../cuboid.py}
+\end{multicols}
 
 \newpage
 
 % ==============================================================================
-% 4. VISUALIZATION & OUTPUT
+% 4. OUTPUT VISUALIZATION
 % ==============================================================================
-\section*{4. Output Visualization and Verification}
-\noindent\rule{\textwidth}{0.6pt}\vspace{0.06cm}
+\section*{4. Output Visualization}
+\noindent\rule{\textwidth}{0.6pt}\vspace{0.15cm}
 
-The program was executed on an $800 \times 600$ viewport. Below are four chronological captures illustrating the cuboid rotating smoothly around the $Y$-axis:
+The program was run and screenshots were captured at different stages of the Y-axis rotation:
 
-\vspace{0.08cm}
+\vspace{0.2cm}
 \begin{center}
-    \begin{minipage}{0.38\textwidth}
+    \begin{minipage}{0.44\textwidth}
         \centering
         \includegraphics[width=\textwidth]{screenshots/cuboid_angle_0.png}
-        \captionof{figure}{Initial orientation ($\theta = 0^\circ$)}
+        \captionof{figure}{Front view ($\theta = 0^\circ$)}
     \end{minipage}
     \hspace{0.5cm}
-    \begin{minipage}{0.38\textwidth}
+    \begin{minipage}{0.44\textwidth}
         \centering
         \includegraphics[width=\textwidth]{screenshots/cuboid_angle_35.png}
-        \captionof{figure}{Rotated state ($\theta = 35^\circ$)}
+        \captionof{figure}{Rotating view ($\theta = 35^\circ$)}
     \end{minipage}
     
-    \vspace{0.08cm}
-    \begin{minipage}{0.38\textwidth}
+    \vspace{0.3cm}
+    \begin{minipage}{0.44\textwidth}
         \centering
         \includegraphics[width=\textwidth]{screenshots/cuboid_angle_70.png}
-        \captionof{figure}{Rotated state ($\theta = 70^\circ$)}
+        \captionof{figure}{Side-angled view ($\theta = 70^\circ$)}
     \end{minipage}
     \hspace{0.5cm}
-    \begin{minipage}{0.38\textwidth}
+    \begin{minipage}{0.44\textwidth}
         \centering
         \includegraphics[width=\textwidth]{screenshots/cuboid_angle_120.png}
-        \captionof{figure}{Rotated state ($\theta = 120^\circ$)}
+        \captionof{figure}{Side view ($\theta = 120^\circ$)}
     \end{minipage}
 \end{center}
 
+\vspace{0.4cm}
 % ==============================================================================
-% 5. REQUIREMENTS COMPLIANCE CHECKLIST
+% 5. RESULTS & DISCUSSION
 % ==============================================================================
-\vspace{0.06cm}
-\section*{5. Requirements Compliance Checklist}
-\noindent\rule{\textwidth}{0.6pt}\vspace{0.04cm}
+\section*{5. Result and Discussion}
+\noindent\rule{\textwidth}{0.6pt}\vspace{0.15cm}
 
-\begin{center}
-\small
-\begin{tabular}{cllc}
-\toprule
-\textbf{No.} & \textbf{Requirement Specification} & \textbf{Implementation in Source Code} & \textbf{Status} \\
-\midrule
-1 & $800 \times 600$ resolution window & \texttt{pygame.display.set\_mode((800, 600), DOUBLEBUF | OPENGL)} & \textbf{Verified} \\
-2 & Black background color & \texttt{glClearColor(0.0, 0.0, 0.0, 1.0)} & \textbf{Verified} \\
-3 & Red cuboid edges & \texttt{glColor3f(1.0, 0.0, 0.0)} inside \texttt{draw\_cuboid()} & \textbf{Verified} \\
-4 & Edge line thickness $= 3$ px & \texttt{glLineWidth(3.0)} & \textbf{Verified} \\
-5 & Unequal dimensions ($W \neq H \neq D$) & Width $= 4.0$, Height $= 2.0$, Depth $= 3.0$ & \textbf{Verified} \\
-6 & Continuous $Y$-axis rotation & \texttt{glRotatef(1.0, 0.0, 1.0, 0.0)} inside render loop & \textbf{Verified} \\
-7 & Smooth animation on black canvas & Hardware double-buffering at 60 FPS via \texttt{clock.tick(60)} & \textbf{Verified} \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-% ==============================================================================
-% 6. RESULTS & DISCUSSION
-% ==============================================================================
-\vspace{0.06cm}
-\section*{6. Result and Discussion}
-\noindent\rule{\textwidth}{0.6pt}\vspace{0.04cm}
-{\small
-The modified vertex coordinates accurately generated a rectangular cuboid rather than an equilateral cube. As the object undergoes continuous rotation around the vertical $Y$-axis, its unequal geometric proportions ($4.0 \times 2.0 \times 3.0$) are clearly visible through dynamic perspective foreshortening. The use of Pygame's \texttt{DOUBLEBUF} combined with \texttt{clock.tick(60)} ensures smooth, flicker-free rendering with crisp 3-pixel-wide red edges against the deep black background.
-}
+The program runs as expected. The red rectangular cuboid is drawn clearly against the solid black background with a visible 3-pixel thickness. Because the width ($4.0$), height ($2.0$), and depth ($3.0$) are all different, the object clearly looks like a rectangular box instead of a regular cube as it spins. The Y-axis rotation using \texttt{glRotatef()} animates continuously and smoothly at 60 frames per second without any stutter or flickering.
 
 \end{document}

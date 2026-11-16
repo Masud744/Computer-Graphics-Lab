@@ -1,4 +1,4 @@
-# Lab 04: 3D Wireframe Modeling and Transformation using OpenGL
+# Lab 04: 3D Wireframe Cuboid and Rotation using OpenGL
 
 Course Code: IRE 404  
 Course Title: Computer Graphics and Animation Sessional  
@@ -13,49 +13,37 @@ Instructor: Farzana Akter, Assistant Professor, Dept. of IRE, UFTB
 
 ---
 
-## Problem Statement & Objectives
+## Problem Description & Objectives
 
-Construct, render, and animate a 3D wireframe rectangular cuboid using Pygame and PyOpenGL. The object must exhibit mutually distinct dimensions across the principal axes ($W \neq H \neq D$) and continuously rotate around the Cartesian $Y$-axis.
+The goal of this lab is to create a 3D wireframe rectangular cuboid using Python, Pygame, and OpenGL. The cuboid has different dimensions for width, height, and depth ($W \neq H \neq D$). Its edges are drawn in red with a 3-pixel thickness and it rotates continuously around the Y-axis against a solid black background.
 
-### Requirements Checklist:
+### Requirements:
 1. **Window Resolution**: $800 \times 600$ pixels via `pygame.display.set_mode()`.
-2. **Background Color**: Solid black canvas using `glClearColor(0.0, 0.0, 0.0, 1.0)`.
+2. **Background Color**: Solid black using `glClearColor(0.0, 0.0, 0.0, 1.0)`.
 3. **Edge Color**: Red wireframe edges using `glColor3f(1.0, 0.0, 0.0)`.
 4. **Edge Thickness**: 3 pixels wide using `glLineWidth(3.0)`.
-5. **Modified Dimensions**: Unequal width, height, and depth ($W = 4.0, H = 2.0, D = 3.0$).
-6. **Continuous Rotation**: Continuous rotation around the $Y$-axis using `glRotatef()`.
-7. **Animation Verification**: Smooth 60 FPS rotation against the black canvas.
+5. **Dimensions**: Distinct width, height, and depth ($W = 4.0, H = 2.0, D = 3.0$).
+6. **Continuous Rotation**: Continuous rotation around the Y-axis using `glRotatef()`.
+7. **Animation**: Smooth 60 FPS rotation on black background.
 
 ---
 
-## Theoretical & Mathematical Basis
+## Dimensions and Rotation
 
-### 1. Cuboid Geometric Modeling
-To enforce $W \neq H \neq D$, half-extents are chosen as:
-- $\text{Half Width } (w_x) = 2.0 \implies \text{Total Width } (X) = 4.0$
-- $\text{Half Height } (h_y) = 1.0 \implies \text{Total Height } (Y) = 2.0$
-- $\text{Half Depth } (d_z) = 1.5 \implies \text{Total Depth } (Z) = 3.0$
-
-The 8 symmetric vertices are defined as $(\pm 2.0, \pm 1.0, \pm 1.5)$ and rendered using 12 line segments (`GL_LINES`).
-
-### 2. $Y$-Axis Rotation Matrix
-$$\mathbf{R}_y(\theta) = \begin{bmatrix}
-\cos\theta & 0 & \sin\theta & 0 \\
-0 & 1 & 0 & 0 \\
--\sin\theta & 0 & \cos\theta & 0 \\
-0 & 0 & 0 & 1
-\end{bmatrix}$$
-Calling `glRotatef(1.0, 0.0, 1.0, 0.0)` increments the rotation angle each frame.
+- **Width ($X$)**: $4.0$ (from $-2.0$ to $+2.0$)
+- **Height ($Y$)**: $2.0$ (from $-1.0$ to $+1.0$)
+- **Depth ($Z$)**: $3.0$ (from $-1.5$ to $+1.5$)
+- **Rotation**: In the main loop, `glRotatef(1.0, 0.0, 1.0, 0.0)` rotates the object by 1 degree per frame around the Y-axis.
 
 ---
 
 ## Output Visualizations
 
-| Angle $\theta = 0^\circ$ | Angle $\theta = 35^\circ$ |
+| Front View ($\theta = 0^\circ$) | Rotating View ($\theta = 35^\circ$) |
 | :---: | :---: |
 | ![Angle 0](screenshots/cuboid_angle_0.png) | ![Angle 35](screenshots/cuboid_angle_35.png) |
 
-| Angle $\theta = 70^\circ$ | Angle $\theta = 120^\circ$ |
+| Side-Angled View ($\theta = 70^\circ$) | Side View ($\theta = 120^\circ$) |
 | :---: | :---: |
 | ![Angle 70](screenshots/cuboid_angle_70.png) | ![Angle 120](screenshots/cuboid_angle_120.png) |
 
@@ -65,36 +53,35 @@ Calling `glRotatef(1.0, 0.0, 1.0, 0.0)` increments the rotation angle each frame
 
 ```text
 Lab_04/
-├── cuboid.py                     # Main interactive OpenGL rotating cuboid script
-├── capture_screenshots.py        # Automated multi-angle screenshot capture utility
-├── screenshots/                  # Rendered output frames (0°, 35°, 70°, 120°)
+├── cuboid.py                     # Main Python OpenGL script
+├── capture_screenshots.py        # Screenshot capture utility
+├── screenshots/                  # Output screenshots (0°, 35°, 70°, 120°)
 │   ├── cuboid_angle_0.png
 │   ├── cuboid_angle_35.png
 │   ├── cuboid_angle_70.png
 │   ├── cuboid_angle_120.png
 │   └── cuboid_output.png
-├── submission_report/            # Academic LaTeX submission report
-│   ├── build.sh                  # 1-click PDF compilation script
-│   ├── main.tex                  # Full LaTeX document source
-│   ├── 2201032_Report_4.pdf      # Compiled formal lab report PDF
-│   └── screenshots/              # Report assets and university crest
-└── README.md                     # Lab 04 documentation
+├── submission_report/            # Lab report files
+│   ├── build.sh                  # PDF build script
+│   ├── main.tex                  # LaTeX source code
+│   ├── 2201032_Report_4.pdf      # Compiled lab report PDF
+│   └── screenshots/              # Report images and university crest
+└── README.md                     # Documentation
 ```
 
 ---
 
-## Running the Code & Building the Report
+## How to Run
 
-### 1. Run Interactive OpenGL Program
+### 1. Run the OpenGL Program
 ```bash
 python3 cuboid.py
 ```
 > Press `ESC` or close the window to exit.
 
-### 2. Compile Lab Report PDF
+### 2. Build the PDF Report
 ```bash
 cd submission_report
 ./build.sh
 ```
-The compiled submission report will be generated at:
-`submission_report/2201032_Report_4.pdf`
+Report will be compiled at: `submission_report/2201032_Report_4.pdf`.
