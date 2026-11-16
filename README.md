@@ -18,6 +18,7 @@ Instructor: Farzana Akter, Assistant Professor, Dept. of IRE, UFTB
 | :---: | :--- | :--- | :---: | :---: |
 | Lab 02 | [Basic 2D Drawing with Turtle Graphics](#lab-02---basic-2d-drawing-with-turtle-graphics) | Python Turtle (2D Primitives, Color Occlusion, Rotational Transformations) | Completed | [2201032_Report_2.pdf](submission_report/2201032_Report_2.pdf) |
 | Lab 03 | [Line & Circle Drawing Algorithms](Lab_03/) | DDA, Bresenham's Line, Mid-Point Circle Algorithm | Completed | - |
+| Lab 04 | [3D Wireframe Modeling & Transformation](Lab_04/) | PyOpenGL, Pygame (3D Transformations, Perspective Projection) | Completed | [2201032_Report_4.pdf](Lab_04/submission_report/2201032_Report_4.pdf) |
 
 ---
 
@@ -36,6 +37,8 @@ Instructor: Farzana Akter, Assistant Professor, Dept. of IRE, UFTB
 
 - Python 3.10+
 - Libraries & Packages:
+  - `pygame` (`pip install pygame`)
+  - `PyOpenGL` (`pip install PyOpenGL PyOpenGL_accelerate`)
   - `matplotlib` (`pip install matplotlib`)
   - `turtle` (Standard Library)
   - `tkinter` (`sudo apt install python3-tk`)
